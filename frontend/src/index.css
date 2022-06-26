@@ -1,0 +1,86 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #8c8c8c
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  background-color: black;
+  align-items: center;
+  padding: 1% 0;
+}
+
+.header ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header ul li {
+  margin-left: 50px;
+}
+
+.header ul li a {
+  display: flex;
+  align-items: center;
+}
+
+.header ul li a:hover {
+  color: #777;
+}
+
+.header ul li a svg {
+  margin-right: 5px;
+}
+
+.title {
+  text-align: center;
+  width: 100%;
+  padding: 2%;
+  background-color: black;
+}
+
+.bottom {
+  position: fixed;
+  width: 100%;
+  left:0;
+  bottom:0;
+}
+
+.login {
+  position:absolute;
+  width: 50%;
+  top:25%;
+  left:50%;
+  transform:translate(-50%,-50%);
+}
+
+.warp-home {
+  display: flex;
+}
+
+.box-home-user {
+  height: 94vh;
+  width: 20vw;
+  background-color: blue;
+  overflow-y: scroll;
+}
+
+.box-home-messages {
+  height: 94vh;
+  width: 80vw;
+  background-color: orange;
+  overflow-y: scroll;
+}
+
+.user-box {
+  height: 3vh;
+  background-color: violet;
+  margin-bottom: 0.5vh;
+}
