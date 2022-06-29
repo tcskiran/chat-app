@@ -23,7 +23,7 @@ const addMessage = asyncHandler(async (req, res) => {
       messageTo: messageData.messageTo.name,
     });
   } else {
-    res.status(500);
+    res.status(200);
     throw new Error('Some problem in adding message to server');
   }
 });
@@ -49,7 +49,7 @@ const getMessages = asyncHandler(async (req, res) => {
     'message messageFrom messageTo'
   );
 
-  res.status(200).json({ messages, name1: user1.name, name2: user2.name });
+  res.status(200).json({ messages, name1: user1?.name, name2: user2?.name });
 });
 
 module.exports = { addMessage, getMessages };

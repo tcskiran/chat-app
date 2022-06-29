@@ -43,7 +43,7 @@ function AllUsers() {
 
       dispatch(getMessages({ email1: userData.email, email2: reciever }));
       setMessagesData(JSON.parse(localStorage.getItem('messages')));
-      console.log('messages=>', messagesData.messages);
+      // console.log('messages=>', messagesData.messages);
     }, 2000);
     // runs when component gets unmounted
     return () => {
