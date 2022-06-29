@@ -33,40 +33,41 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/messages', require('./routes/messageRoutes'));
 app.use(errorHandler);
 
 // app.listen(webSocketServerPort, () =>
 //   console.log(`listening on port ${webSocketServerPort}`)
 // );
 
-const clients = {};
-const messages = [];
+// const clients = {};
+// const messages = [];
 
-// what to do if there is a request in handshake
-websocket.on('request', (request) => {
-  var userId = uuidv4();
+// // what to do if there is a request in handshake
+// websocket.on('request', (request) => {
+//   var userId = uuidv4();
 
-  const connection = request.accept(null, request.origin); // accepting the request
-  clients[userId] = connection; // adding the current user to the list of clients
+//   const connection = request.accept(null, request.origin); // accepting the request
+//   clients[userId] = connection; // adding the current user to the list of clients
 
-  // sending prev messages to new user
-  clients[userId].sendUTF(
-    JSON.stringify({
-      type: 'all-messages',
-      messages,
-      userId,
-    })
-  );
+//   // sending prev messages to new user
+//   clients[userId].sendUTF(
+//     JSON.stringify({
+//       type: 'all-messages',
+//       messages,
+//       userId,
+//     })
+//   );
 
-  // if we recieve any new message from any client
-  connection.on('message', (message) => {
-    // sending the message to all clients
-    if (message.type === 'utf8') {
-      const dataFromClient = JSON.parse(message.utf8Data);
-      messages.push({ msg: dataFromClient.msg, user: dataFromClient.user });
-      for (key in clients) {
-        clients[key].sendUTF(message.utf8Data); // sending the message to all clients
-      }
-    }
-  });
-});
+//   // if we recieve any new message from any client
+//   connection.on('message', (message) => {
+//     // sending the message to all clients
+//     if (message.type === 'utf8') {
+//       const dataFromClient = JSON.parse(message.utf8Data);
+//       messages.push({ msg: dataFromClient.msg, user: dataFromClient.user });
+//       for (key in clients) {
+//         clients[key].sendUTF(message.utf8Data); // sending the message to all clients
+//       }
+//     }
+//   });
+// });

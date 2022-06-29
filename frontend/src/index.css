@@ -48,8 +48,8 @@ body {
 
 .bottom {
   position: fixed;
-  width: 100%;
-  left:0;
+  width: 80vw;
+  right: 0;
   bottom:0;
 }
 
@@ -63,6 +63,7 @@ body {
 
 .warp-home {
   display: flex;
+  overflow: hidden;
 }
 
 .box-home-user {
@@ -71,6 +72,11 @@ body {
   background-color: blue;
   overflow-y: scroll;
 }
+
+html::-webkit-scrollbar {
+    display: none;
+  }
+
 
 .box-home-messages {
   height: 94vh;

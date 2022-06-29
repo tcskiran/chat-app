@@ -12,14 +12,7 @@ function Home() {
     <>
       {user ? (
         <>
-          <div className="warp-home">
-            <div className="box-home-user">
-              <AllUsers />
-            </div>
-            <div className="box-home-messages">
-              <p>messages</p>
-            </div>
-          </div>
+          <AllUsers />
         </>
       ) : (
         <>
