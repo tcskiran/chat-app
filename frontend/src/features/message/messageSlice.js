@@ -13,7 +13,8 @@ export const addMessage = createAsyncThunk(
   'message/addMessage',
   async (messageData, thunkAPI) => {
     try {
-      return await messageService.addMessage(messageData);
+      const token = thunkAPI.getState().auth.user.token;
+      return await messageService.addMessage(messageData, token);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.message);
     }
@@ -24,7 +25,8 @@ export const getMessages = createAsyncThunk(
   'message/getMessages',
   async (messageData, thunkAPI) => {
     try {
-      return await messageService.getMessages(messageData);
+      const token = thunkAPI.getState().auth.user.token;
+      return await messageService.getMessages(messageData, token);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.message);
     }

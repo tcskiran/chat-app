@@ -28,7 +28,6 @@ function AllUsers() {
     dispatch(
       addMessage({
         message: searchVal,
-        emailFrom: user.email,
         emailTo: reciever,
       })
     );
@@ -41,9 +40,8 @@ function AllUsers() {
       setUserData(JSON.parse(localStorage.getItem('user')));
       setUsersData(JSON.parse(localStorage.getItem('users')));
 
-      dispatch(getMessages({ email1: userData.email, email2: reciever }));
+      dispatch(getMessages({ email1: reciever }));
       setMessagesData(JSON.parse(localStorage.getItem('messages')));
-      // console.log('messages=>', messagesData.messages);
     }, 2000);
     // runs when component gets unmounted
     return () => {

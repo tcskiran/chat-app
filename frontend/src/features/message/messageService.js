@@ -2,14 +2,26 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:8000/api/messages';
 
-const addMessage = async (messageData) => {
-  const response = await axios.post(API_URL + '/message', messageData);
+const addMessage = async (messageData, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.post(API_URL + '/message', messageData, config);
 
   return response.data;
 };
 
-const getMessages = async (messageData) => {
-  const response = await axios.post(API_URL + '/', messageData);
+const getMessages = async (messageData, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.post(API_URL + '/', messageData, config);
 
   if (response.data) {
     localStorage.setItem('messages', JSON.stringify(response.data));
