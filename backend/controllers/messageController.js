@@ -3,6 +3,10 @@ const asyncHandler = require('express-async-handler');
 const Message = require('../models/messageModel');
 const User = require('../models/userModel');
 
+// sending message
+// @path  -PRIVATE - POST - /api/messages/message
+// @param -message -> Message to be sent
+// @param -emailTo -> Email of reciever
 const addMessage = asyncHandler(async (req, res) => {
   const { message, emailTo } = req.body;
 
@@ -28,6 +32,9 @@ const addMessage = asyncHandler(async (req, res) => {
   }
 });
 
+// get messages between user and another person
+// @path  - PRIVATE - POST - /api/messages/
+// @param -email1 -> Email of another person
 const getMessages = asyncHandler(async (req, res) => {
   const { email1 } = req.body;
 

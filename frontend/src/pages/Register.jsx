@@ -5,11 +5,8 @@ import { FaChessKnight, FaUser } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { register, reset } from '../features/auth/authSlice';
 import Spinner from '../components/Spinner';
-import { w3cwebsocket as W3CWebSocket } from 'websocket';
 
 function Register() {
-  const client = new W3CWebSocket('ws://127.0.0.1:8000');
-
   const [formData, setFormData] = useState({
     name: '',
     email: '',

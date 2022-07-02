@@ -47,7 +47,7 @@ function AllUsers() {
     return () => {
       clearInterval(checkUsers);
     };
-  }, [userData, reciever, messagesData]);
+  }, [reciever]);
 
   return (
     <>
@@ -57,6 +57,11 @@ function AllUsers() {
             return (
               <div
                 key={index}
+                style={{
+                  backgroundColor: `${
+                    reciever === data.email ? 'white' : 'pink'
+                  }`,
+                }}
                 className="user-box"
                 onClick={() => {
                   setReciever(data.email);
@@ -98,14 +103,14 @@ function AllUsers() {
                       style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}
                     >
                       {message.messageFrom === userData._id
-                        ? messagesData.name1[0].toUpperCase()
-                        : messagesData.name2[0].toUpperCase()}
+                        ? messagesData.name2[0].toUpperCase()
+                        : messagesData.name1[0].toUpperCase()}
                     </Avatar>
                   }
                   title={
                     message.messageFrom === userData._id
-                      ? messagesData.name1
-                      : messagesData.name2
+                      ? messagesData.name2
+                      : messagesData.name1
                   }
                   description={message.message}
                 />

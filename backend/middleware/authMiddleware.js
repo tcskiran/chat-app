@@ -2,6 +2,8 @@ const asyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 
+// checking jwt of user
+// adds user to request if token is correct
 const protect = asyncHandler(async (req, res, next) => {
   if (
     req.headers.authorization &&

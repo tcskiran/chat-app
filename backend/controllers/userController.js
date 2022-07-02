@@ -4,8 +4,14 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/userModel');
 
+// registering/creating user
+// @path  - PUBLIC - POST - /api/users/register
+// @param -name -> Name of user
+// @param -email -> Email of user
+// @param -password -> Password of user
+// @param -passwordCheck -> Same password 2nd time
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password, passwordCheck, connectionId } = req.body;
+  const { name, email, password, passwordCheck } = req.body;
 
   if (!name || !email || !password || !passwordCheck) {
     res.status(400);
@@ -31,7 +37,6 @@ const registerUser = asyncHandler(async (req, res) => {
     name,
     email,
     password: hash,
-    connectionId,
   });
 
   if (user) {
@@ -47,8 +52,12 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
+// logging in user
+// @path  - PUBLIC - POST - /api/users/login
+// @param -email -> Email of user
+// @param -password -> Password of user
 const loginUser = asyncHandler(async (req, res) => {
-  const { email, password, connectionId } = req.body;
+  const { email, password } = req.body;
 
   if (!email || !password) {
     res.status(400);
@@ -58,8 +67,6 @@ const loginUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
 
   if (user && (await bcrypt.compare(password, user.password))) {
-    await User.findByIdAndUpdate(user._id, { connectionId });
-
     res.status(200).json({
       _id: user._id,
       name: user.name,
@@ -72,6 +79,8 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
+// getting all users
+// @path  - PUBLIC - GET - /api/users/
 const getUsers = asyncHandler(async (req, res) => {
   const users = await User.find().select(
     '-password -createdAt -updatedAt -__v'
@@ -81,6 +90,9 @@ const getUsers = asyncHandler(async (req, res) => {
   });
 });
 
+// creating jwt token
+// @param id -> userID
+// @return -> jwt token
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
 };
