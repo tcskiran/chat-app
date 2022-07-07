@@ -25,3 +25,5 @@ app.use('/api/messages', require('./routes/messageRoutes'));
 app.use(errorHandler);
 
 app.listen(ServerPort, () => console.log(`listening on port ${ServerPort}`));
+
+module.exports = app;
