@@ -19,22 +19,26 @@ function Register() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
+  const { isLoading, isError, isSuccess, errorMessage } = useSelector(
     (state) => state.auth
   );
 
   useEffect(() => {
     if (isError) {
-      toast.error(message);
+      toast.error(errorMessage);
     }
 
     // Redirect when logged in
-    if (isSuccess || user) {
-      navigate('/login');
+    if (isSuccess) {
+      toast.success('Registration successful');
+      toast.info('Mail sent!!  Click link in mail to login', {
+        autoClose: 7500,
+      });
+      navigate('/');
     }
 
     dispatch(reset());
-  }, [isError, isSuccess, user, message, navigate, dispatch]);
+  }, [isError, isSuccess, errorMessage, navigate, dispatch]);
 
   const onChange = (e) => {
     setFormData((prevState) => ({

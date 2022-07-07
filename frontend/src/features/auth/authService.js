@@ -4,6 +4,11 @@ const API_URL = 'http://localhost:8000/api/users';
 
 const register = async (userData) => {
   const response = await axios.post(API_URL + '/register', userData);
+  return response.data;
+};
+
+const checkEmail = async (token) => {
+  const response = await axios.get(API_URL + '/confirmation/' + token);
 
   if (response.data) {
     localStorage.setItem('user', JSON.stringify(response.data));
@@ -25,6 +30,7 @@ const login = async (userData) => {
 const logout = () => {
   localStorage.removeItem('user');
   localStorage.removeItem('users');
+  localStorage.removeItem('messages');
 };
 
 const getUsers = async () => {
@@ -39,6 +45,7 @@ const getUsers = async () => {
 
 const authService = {
   register,
+  checkEmail,
   login,
   logout,
   getUsers,

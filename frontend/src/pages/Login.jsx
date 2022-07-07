@@ -17,22 +17,22 @@ function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
+  const { user, isLoading, isError, isSuccess, errorMessage } = useSelector(
     (state) => state.auth
   );
 
   useEffect(() => {
     if (isError) {
-      toast.error(message);
+      toast.error(errorMessage);
     }
 
     // Redirect when logged in
-    if (isSuccess || user) {
+    if (isSuccess) {
       navigate('/');
     }
 
     dispatch(reset());
-  }, [isError, isSuccess, user, message, navigate, dispatch]);
+  }, [isError, isSuccess, user, errorMessage, navigate, dispatch]);
 
   const onChange = (e) => {
     setFormData((prevState) => ({

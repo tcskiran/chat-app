@@ -19,11 +19,17 @@ export const register = createAsyncThunk(
     try {
       return await authService.register(user);
     } catch (error) {
-      // const message =
-      //   (error.message && error.message.data && error.message.data.message) ||
-      //   error.message ||
-      //   error.toString();
+      return thunkAPI.rejectWithValue(error.response.data.message);
+    }
+  }
+);
 
+export const checkEmail = createAsyncThunk(
+  'auth/checkEmail',
+  async (token, thunkAPI) => {
+    try {
+      return await authService.checkEmail(token);
+    } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.message);
     }
   }
@@ -33,13 +39,7 @@ export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
   try {
     return await authService.login(user);
   } catch (error) {
-    // const message =
-    //   (error.message && error.message.data && error.message.data.message) ||
-    //   error.message ||
-    //   error.toString();
-
-    const message = error.response.data.message;
-    return thunkAPI.rejectWithValue(message);
+    return thunkAPI.rejectWithValue(error.response.data.message);
   }
 });
 
@@ -70,13 +70,25 @@ export const authSlice = createSlice({
       .addCase(register.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.user = action.payload;
       })
       .addCase(register.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.errorMessage = action.payload;
         state.user = null;
+      })
+      .addCase(checkEmail.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(checkEmail.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+      })
+      .addCase(checkEmail.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.errorMessage = action.payload;
       })
       .addCase(login.pending, (state) => {
         state.isLoading = true;
