@@ -10,6 +10,11 @@ const User = require('../models/userModel');
 const addMessage = asyncHandler(async (req, res) => {
   const { message, emailTo } = req.body;
 
+  if (!message || message === '') {
+    res.status(400);
+    throw new Error('Please enter a message before sending');
+  }
+
   const messageFrom = await User.findOne({ email: req.user.email });
   const messageTo = await User.findOne({ email: emailTo });
 
@@ -59,4 +64,8 @@ const getMessages = asyncHandler(async (req, res) => {
   res.status(200).json({ messages, name1: user1?.name, name2: user2?.name });
 });
 
-module.exports = { addMessage, getMessages };
+const deleteMessage = asyncHandler(async (id) => {
+  await Message.deleteOne({ _id: id });
+});
+
+module.exports = { addMessage, getMessages, deleteMessage };

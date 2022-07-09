@@ -5,6 +5,10 @@ const nodemailer = require('nodemailer');
 
 const User = require('../models/userModel');
 
+const removeUser = asyncHandler(async (email) => {
+  await User.deleteOne({ email: email });
+});
+
 // registering/creating user
 // @path  - PUBLIC - POST - /api/users/register
 // @param -name -> Name of user
@@ -70,7 +74,7 @@ const registerUser = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      token: generateToken(user._id),
+      token: emailToken,
     });
   } else {
     res.status(400);
@@ -112,6 +116,7 @@ const loginUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
 
   if (user && !user.conform) {
+    res.status(401);
     throw new Error('Please confirm your email');
   }
 
@@ -146,4 +151,4 @@ const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
 };
 
-module.exports = { registerUser, checkEmail, loginUser, getUsers };
+module.exports = { removeUser, registerUser, checkEmail, loginUser, getUsers };
