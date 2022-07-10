@@ -53,7 +53,7 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   const emailToken = generateToken(user._id);
-  const url = `http://localhost:3000/confirmation/${emailToken}`;
+  const url = `${process.env.FRONTEND_URL}/confirmation/${emailToken}`;
 
   let mailOptions = {
     from: '"chat-app-admin 💬💬💬"', // sender address

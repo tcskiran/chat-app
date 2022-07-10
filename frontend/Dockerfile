@@ -15,4 +15,4 @@ RUN npm install
 ADD . .
 
 # running app
-ENTRYPOINT [ "npm","run","server" ]
+ENTRYPOINT [ "npm","start" ]
