@@ -8,6 +8,14 @@
 
 - Contains unit tests for early bug fixing.
 
-# Usage
+### Install Dependencies
 
-run ```npm run dev```
+```
+npm install
+```
+
+### Run
+
+```
+npm run dev
+```
